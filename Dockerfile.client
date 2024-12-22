@@ -1,0 +1,17 @@
+# Create a bridge network with the following command
+# docker network create my-bridge-network
+
+# Build the image with the following command
+# docker build -t nc_client -f Dockerfile.client .
+
+# Run the image with the following command
+# docker run -it --name sender --network my-bridge-network -e SERVER_HOST=receiver -v $(pwd):/netcat nc_client
+# Use the official Alpine image as a base
+FROM alpine:latest
+
+ENV SERVER_HOST=localhost
+# Install netcat-openbsd
+RUN apk add netcat-openbsd
+
+# Run netcat
+CMD ["/netcat/nc_client.sh"]
